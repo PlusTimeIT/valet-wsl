@@ -1,19 +1,10 @@
 <?php
+namespace Valet\WSL;
 
 use Illuminate\Container\Container;
 
 class Facade
 {
-    /**
-     * The key for the binding in the container.
-     *
-     * @return string
-     */
-    public static function containerKey()
-    {
-        return 'Valet\\' . basename(str_replace('\\', '/', get_called_class()));
-    }
-
     /**
      * Call a non-static method on the facade.
      *
@@ -26,6 +17,16 @@ class Facade
         $resolvedInstance = Container::getInstance()->make(static::containerKey());
 
         return call_user_func_array([$resolvedInstance, $method], $parameters);
+    }
+
+    /**
+     * The key for the binding in the container.
+     *
+     * @return string
+     */
+    public static function containerKey()
+    {
+        return 'Valet\\' . basename(str_replace('\\', '/', get_called_class()));
     }
 }
 
